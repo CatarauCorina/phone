@@ -31,6 +31,12 @@
             <button ng-click="isReverse = true">Desc</button>
         </div>
 
+        <form>
+            <label>Search:</label>
+            <input type="text" ng-model="keywords" placeholder="search...">
+            <button type="submit" ng-click="getFilteredContacts(keywords)">Search</button>
+        </form>
+
 
         <md-content>
             <md-list flex="">

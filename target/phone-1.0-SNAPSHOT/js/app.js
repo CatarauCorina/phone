@@ -17,5 +17,19 @@ var app = angular.module('app', ['ngMaterial','ngMessages']);
         });
     };
 
+        $scope.getFilteredContacts=function(keywords){
 
-}]);
+            $http({
+                method: 'GET',
+                url: 'http://localhost:8080/contacts/search/'+keywords
+            }).then(function successCallback(data) {
+                $scope.contacts=data.data
+
+            }, function errorCallback(data) {
+                console.log("error");
+            });
+        }
+
+
+
+    }]);

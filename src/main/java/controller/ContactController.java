@@ -41,5 +41,22 @@ public class ContactController {
         return new ResponseEntity<List<Contact>>(contacts, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/search/{field}",method = RequestMethod.GET,produces = "application/JSON")
+    @ResponseBody
+    public ResponseEntity<List<Contact>> searchContact(@PathVariable String field ){
+        try {
+            List<Contact> filteredContacts=new ArrayList<>();
+            List<Contact> contacts= this.dataFetcher.getContacts();
+            contacts.stream().forEach(contact -> {
+                if (contact.getName().toLowerCase().contains(field) || contact.getAddress().toLowerCase().contains(field)){
+                    filteredContacts.add(contact);
+                }
+            });
+            return new ResponseEntity<>(filteredContacts, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
 
